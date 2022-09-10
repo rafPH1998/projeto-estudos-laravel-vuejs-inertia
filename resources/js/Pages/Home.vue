@@ -1,57 +1,66 @@
 <template>
     <layout>
-
-        <div v-if="$page.props.flash.success" class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
-            <div class="flex">
-                <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
-                <div>
-                <p class="font-bold">Sucesso!!</p>
-                <p class="text-sm">{{ $page.props.flash.success }}</p>
-                </div>
+        <div class="bg-white shadow overflow-hidden sm:rounded-md">
+            <ul class="divide-y divide-gray-200">
+                <li v-for="user in users.data" :key="user.id">
+                    <div class="px-4 py-4 sm:px-6">
+                        <div class="flex items-center justify-between">
+                        <p class="text-sm font-medium text-indigo-600 truncate">
+                            {{ user.name }}
+                        </p>
+                        <!-- <div class="ml-2 flex-shrink-0 flex">
+                            <p
+                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                            >
+                            Open NOW! 🍺
+                            </p>
+                        </div> -->
+                        </div>
+                        <div class="mt-2 sm:flex sm:justify-between">
+                            <div class="sm:flex">
+                                <p class="mt-2 flex items-center text-sm text-gray-500">
+                                <!-- Heroicon name: solid/location-marker -->
+                                <svg
+                                    class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                    fill-rule="evenodd"
+                                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                    clip-rule="evenodd"
+                                    />
+                                </svg>
+                                {{ user.city }}, {{ user.state }}, {{ user.country }}, 
+                                </p>
+                            </div>
+                            <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                                <!-- <p>Quantidade de cervejas: {{ b.beers_count }}</p> -->
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="px-6 pb-5 pt-5">
+                <pagination :data="users"></pagination>
             </div>
         </div>
-
-        <h1>Lista de usuários</h1>
-
-        <div>
-            <table class="min-w-full leading-normal">
-                <thead>
-                    <tr>
-                        <th
-                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            Nome
-                        </th>
-                        <th
-                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            E-mail
-                        </th>
-                    </tr>
-                </thead>
-                <tbody v-for="user in users" :key="user.id">
-                    <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            {{ user.name }}
-                        </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            {{ user.email }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
     </layout>
 </template>
 
 <script>
     import Layout from '../Layout.vue'
+    import Pagination from '../Shared/Pagination.vue'
 
     export default {
         components: {
             Layout,
+            Pagination
         },
         props: {
-            users: Array
+            users: Object
         }
     }
 </script>
