@@ -4,15 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUser;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(3);
 
         return Inertia::render('Home', [
             'users' => $users
