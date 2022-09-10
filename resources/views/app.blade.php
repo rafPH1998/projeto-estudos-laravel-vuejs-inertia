@@ -7,7 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     @inertiaHead
   </head>
-  <body>
-    @inertia
+  <body class="bg-gray-100">
+    <div class="container mx-auto mt-4">
+      @inertia
+    </div>
   </body>
 </html>
