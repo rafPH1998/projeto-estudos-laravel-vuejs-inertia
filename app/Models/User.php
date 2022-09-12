@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'city',
+        'state',
+        'country'
     ];
 
     /**
@@ -41,4 +44,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function searchUser(string $search = '')
+    {
+
+        $user = User::where(function ($query) use ($search) {
+            if ($search) {
+                $query->where('name', 'like', "%{$search}%");
+                $query->orWhere('email', $search);
+                $query->orWhere('city', 'like', "%{$search}%");
+                $query->orWhere('state', 'like', "%{$search}%");
+                $query->orWhere('country', 'like', "%{$search}%");
+            }
+        })
+        ->orderBy('id', 'desc')
+        ->paginate(3);
+
+        // $user = User::when(function ($query) use ($search) {
+        //     $query->where('name', 'like', "%{$search}%");
+        //     $query->orWhere('email', $search);
+        //     $query->orWhere('city', 'like', "%{$search}%");
+        //     $query->orWhere('state', 'like', "%{$search}%");
+        //     $query->orWhere('country', 'like', "%{$search}%");     
+        // })
+        // ->orderBy('id', 'desc')
+        // ->paginate(3);
+
+        return $user;
+    }
+    
 }
